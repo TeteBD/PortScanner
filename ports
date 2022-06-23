@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#TeteBD
+#https://github.com/TeteBD
+
+function ctrl_c(){
+    echo -e "\n\n \e[36m[\e[31m-\e[36m]\e[36mSaliendo ... \e[0m \n "
+    tput cnorm; exit 1
+}
+
+if [ "$1" == "" ]; then
+    echo "Uso: ports IP"
+    echo "Ejemplo: ports 192.168.1.1"
+    sleep 0.4
+    exit 1
+elif [ "$1" == "-h" ]; then
+    echo "Escanea puertos facilmente"
+    echo "=========================="
+    echo "           Uso:           "
+    echo "ports IP"
+    echo "=========Opciones========="
+    echo ""
+    echo "ports -h→Muestra este menú"
+    sleep 0.5
+    exit 0
+else
+    ping -c 5 $1 2>/dev/null 1>&2
+    if [ "$?" == 0 ];then
+        echo -e "Escaneo iniciado \n "
+        trap ctrl_c INT
+        tput civis
+        for port in $(seq 1 65535); do
+            timeout 1 bash -c "echo '' > /dev/tcp/$1/$port" 2>/dev/null && echo -e "\e[32m[+] Puerto \e[4m$port\e[0m - \e[32mAbierto\e[0m" &
+            done; wait
+            tput cnorm
+    elif [ "$?" != 0 ];then
+        echo -e "\e[31mNo se pudo localizar la IP :(\e[0m"
+        tput cnorm
+        exit 1
+    fi
+    exit 1
+fi
