@@ -1,6 +1,6 @@
 # PortScanner
 
-### Hecho por [https://github.com/TeteBD]TeteBD
+### Hecho por [_TeteBD_](https://github.com/TeteBD)
 
 *Uso:*
 '''
