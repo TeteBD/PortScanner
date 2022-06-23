@@ -12,4 +12,4 @@ ports 192.168.1.1
 
 #### Instalación:
 ```bash
-sudo git clone https://github.com/TeteBD/PortScanner /usr/bin
+wget https://raw.githubusercontent.com/TeteBD/PortScanner/main/ports;sudo mv ports /usr/bin && chmod +x /usr/bin/ports
